@@ -1,0 +1,30 @@
+# Build output
+dist/
+.output/
+
+# Dependencies
+node_modules/
+
+# Environment — never commit real secrets
+.env
+.env.local
+.env.production
+
+# Astro cache
+.astro/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+*.log
+npm-debug.log*

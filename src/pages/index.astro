@@ -1,0 +1,185 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/ui/Button.astro';
+import { getAllTours } from '@lib/tours';
+import Boat from 'phosphor-astro/Boat.astro';
+import PersonSimpleWalk from 'phosphor-astro/PersonSimpleWalk.astro';
+import UsersThree from 'phosphor-astro/UsersThree.astro';
+import MapPin from 'phosphor-astro/MapPin.astro';
+import ShieldCheck from 'phosphor-astro/ShieldCheck.astro';
+import EnvelopeSimple from 'phosphor-astro/EnvelopeSimple.astro';
+
+const tours = await getAllTours();
+---
+
+<BaseLayout
+  title="Split Guided Tours"
+  description="Explore Split with Split Tours — small-group walking tours of Diocletian's Palace and Adriatic island boat tours. Local guides, authentic experiences."
+>
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-900">
+    <img
+      src="/images/neufal54-croatia-505625_1920.jpg"
+      alt="Split Riva waterfront with palm trees and the city centre"
+      width="1920"
+      height="1080"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 w-full h-full object-cover opacity-50"
+    />
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-primary-300 font-medium tracking-widest text-sm uppercase mb-4">
+        Split, Croatia
+      </p>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white mb-6 leading-tight">
+        Experience Split<br />Like a Local
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Small-group tours led by an experienced and passionate local guide. Whether you explore the ancient streets on foot or sail the crystal-clear Adriatic, we make sure it's unforgettable.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="#tours" size="lg">
+          Explore our tours
+        </Button>
+        <a href="#tours" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full border-2 border-white text-white hover:bg-white hover:text-slate-900 transition-all duration-200">
+          Learn more
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <a
+      href="#tours"
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 hover:text-white transition-colors"
+      aria-label="Scroll to tours"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Tours intro header -->
+  <div id="tours" class="bg-white py-16 md:py-20 text-center px-4">
+    <p class="text-xs font-semibold tracking-widest uppercase text-primary-500 mb-4">What we offer</p>
+    <h2 class="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-5">Our Tours</h2>
+    <p class="text-lg text-slate-500 max-w-xl mx-auto">
+      Two unique ways to discover Split. Pick the one that speaks to you — or do both.
+    </p>
+  </div>
+
+  <!-- Tours — side by side cards -->
+  <section aria-label="Our tours" class="bg-white pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      {tours.map((tour, index) => {
+        const { slug, data } = tour;
+        const { title, description, price, duration, maxGroupSize, image, imageAlt, category } = data;
+        return (
+          <article class="group bg-white border border-slate-200 overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
+            {/* Image */}
+            <a href={`/tours/${slug}`} class="block overflow-hidden h-72 md:h-80 lg:h-96" tabindex="-1" aria-hidden="true">
+              <img
+                src={image}
+                alt={imageAlt}
+                width="800"
+                height="600"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </a>
+
+            {/* Content */}
+            <div class="flex flex-col flex-1 p-7 lg:p-8">
+              <p class="flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase text-primary-500 mb-3">
+                {category === 'boat'
+                  ? <><Boat width={14} height={14} /> Boat tour</>
+                  : <><PersonSimpleWalk width={14} height={14} /> Walking tour</>}
+              </p>
+
+              <h3 class="text-2xl lg:text-3xl font-display font-bold text-slate-900 mb-3">
+                <a href={`/tours/${slug}`} class="hover:text-primary-700 transition-colors">{title}</a>
+              </h3>
+
+              <p class="text-slate-500 leading-relaxed mb-6 flex-1">
+                {description}
+              </p>
+
+              <div class="flex items-center gap-5 text-sm text-slate-400 pb-6 border-b border-slate-100 mb-6">
+                <span class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  {duration}
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Max {maxGroupSize}
+                </span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-3xl font-bold text-slate-900">€{price}</span>
+                  <span class="text-sm text-slate-400 ml-1">/ person</span>
+                </div>
+                <a
+                  href={`/tours/${slug}`}
+                  class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors"
+                >
+                  Book now
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Trust section -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-4xl font-display font-bold text-primary-600 mb-2">500+</div>
+          <p class="text-slate-600">Happy guests</p>
+        </div>
+        <div>
+          <div class="text-4xl font-display font-bold text-primary-600 mb-2">5★</div>
+          <p class="text-slate-600">Average rating</p>
+        </div>
+        <div>
+          <div class="text-4xl font-display font-bold text-primary-600 mb-2">10+</div>
+          <p class="text-slate-600">Years of experience</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold text-slate-900 mb-3">Why choose Split Tours?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { Icon: UsersThree,     title: 'Small groups',     desc: 'Maximum 10–12 guests for a personal experience.' },
+          { Icon: MapPin,         title: 'Local guides',     desc: 'Born-and-raised Split locals who know every corner.' },
+          { Icon: ShieldCheck,    title: 'Secure payments',  desc: 'All payments processed safely through PayPal.' },
+          { Icon: EnvelopeSimple, title: 'Instant booking',  desc: 'Confirm your spot in minutes, full confirmation by email.' },
+        ].map(({ Icon, title, desc }) => (
+          <div class="text-center">
+            <div class="flex justify-center mb-4 text-primary-600" aria-hidden="true">
+              <Icon width={36} height={36} />
+            </div>
+            <h3 class="font-semibold text-slate-900 mb-2">{title}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

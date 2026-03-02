@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/ui/Button.astro';
+import CheckCircle from 'phosphor-astro/CheckCircle.astro';
+---
+
+<BaseLayout
+  title="Booking Confirmed"
+  description="Your tour booking with Split Tours is confirmed. Check your email for details."
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-4 py-20">
+    <div class="max-w-md w-full text-center">
+      <!-- Success icon -->
+      <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-display font-bold text-slate-900 mb-3">You're booked!</h1>
+      <p class="text-slate-500 leading-relaxed mb-8">
+        Thank you for booking with Split Tours. A confirmation has been sent to your email address with all the details you need.
+      </p>
+
+      <div class="bg-slate-50 rounded-xl border border-slate-100 p-5 text-left mb-8 space-y-2 text-sm text-slate-600">
+        <p class="font-medium text-slate-800 mb-1">What's next?</p>
+        <p class="flex items-center gap-2"><CheckCircle width={16} height={16} class="text-emerald-500 shrink-0" /> Check your inbox for a booking confirmation email.</p>
+        <p class="flex items-center gap-2"><CheckCircle width={16} height={16} class="text-emerald-500 shrink-0" /> Save the meeting point and tour date.</p>
+        <p class="flex items-center gap-2"><CheckCircle width={16} height={16} class="text-emerald-500 shrink-0" /> Arrive 10 minutes early — your guide will be waiting!</p>
+      </div>
+
+      <Button href="/" variant="outline">Back to homepage</Button>
+    </div>
+  </section>
+</BaseLayout>

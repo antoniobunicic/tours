@@ -1,0 +1,58 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-slate-900 text-slate-300">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="font-display text-xl font-bold text-white hover:text-primary-300 transition-colors">
+          Split Tours
+        </a>
+        <p class="mt-3 text-sm leading-relaxed text-slate-400">
+          Authentic guided experiences in Split. Small groups, local guides, unforgettable moments.
+        </p>
+      </div>
+
+      <!-- Tours -->
+      <div>
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Our Tours</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/tours/walking-tour" class="text-sm hover:text-white transition-colors">
+              Old Town Walking Tour
+            </a>
+          </li>
+          <li>
+            <a href="/tours/boat-tour" class="text-sm hover:text-white transition-colors">
+              Adriatic Coast Boat Tour
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="mailto:hello@splittours.com" class="hover:text-white transition-colors">
+              hello@splittours.com
+            </a>
+          </li>
+          <li>
+            <a href="tel:+38520123456" class="hover:text-white transition-colors">
+              +385 20 123 456
+            </a>
+          </li>
+          <li class="text-slate-400">Split, Croatia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>&copy; {year} Split Tours. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

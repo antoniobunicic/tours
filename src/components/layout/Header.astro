@@ -1,0 +1,94 @@
+---
+import Compass from 'phosphor-astro/Compass.astro';
+
+const navLinks = [
+  { label: 'Tours', href: '/#tours' },
+  { label: 'Walking Tour', href: '/tours/walking-tour' },
+  { label: 'Boat Tour', href: '/tours/boat-tour' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 font-display text-xl font-bold text-primary-700 hover:text-primary-800 transition-colors">
+        <Compass width={28} height={28} aria-hidden="true" />
+        Split Tours
+      </a>
+
+      <!-- Desktop nav -->
+      <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6">
+        {navLinks.map(({ label, href }) => (
+          <a
+            href={href}
+            class:list={[
+              'text-sm font-medium transition-colors',
+              currentPath === href.split('#')[0]
+                ? 'text-primary-600'
+                : 'text-slate-600 hover:text-primary-600',
+            ]}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- CTA -->
+      <a
+        href="/#tours"
+        class="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
+      >
+        Book a Tour
+      </a>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden border-t border-slate-100">
+    <nav aria-label="Mobile navigation" class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1">
+      {navLinks.map(({ label, href }) => (
+        <a
+          href={href}
+          class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 rounded-lg transition-colors"
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="/#tours"
+        class="mt-2 px-3 py-2.5 text-sm font-semibold text-center rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+      >
+        Book a Tour
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

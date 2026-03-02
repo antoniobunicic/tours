@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  tour: CollectionEntry<'tours'>;
+}
+
+const { tour } = Astro.props;
+const { data } = tour;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: data.title,
+  description: data.description,
+  image: new URL(data.image, Astro.site).href,
+  url: Astro.url.href,
+  offers: {
+    '@type': 'Offer',
+    price: data.price,
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    url: Astro.url.href,
+  },
+  provider: {
+    '@type': 'TouristInformationCenter',
+    name: 'Split Tours',
+    url: Astro.site?.href,
+  },
+  touristType: {
+    '@type': 'Audience',
+    audienceType: 'Tourists',
+  },
+  itinerary: {
+    '@type': 'ItemList',
+    itemListElement: data.highlights.map((highlight, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: highlight,
+    })),
+  },
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

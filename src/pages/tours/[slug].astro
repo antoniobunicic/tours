@@ -1,0 +1,54 @@
+---
+export const prerender = false;
+
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TourHero from '@components/tours/TourHero.astro';
+import BookingForm from '@components/tours/BookingForm.astro';
+import JsonLd from '@components/seo/JsonLd.astro';
+import { getTourBySlug } from '@lib/tours';
+import { getAvailableSlots } from '@lib/availability';
+
+const { slug } = Astro.params;
+const tour = await getTourBySlug(slug!);
+
+if (!tour) {
+  return Astro.redirect('/404');
+}
+
+const { data, body } = tour;
+
+const icsUrl = import.meta.env.GOOGLE_CALENDAR_ICS_URL;
+const summaryPrefix = data.category === 'boat' ? 'Boat' : 'Walking';
+const { slots, error: slotsError } = icsUrl
+  ? await getAvailableSlots(icsUrl, summaryPrefix)
+  : { slots: [], error: false };
+
+// Render markdown body to HTML
+const { Content } = await tour.render();
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.image}
+  imageAlt={data.imageAlt}
+>
+  <JsonLd tour={tour} slot="head" />
+
+  <TourHero tour={tour} />
+
+  <!-- Full description from markdown body -->
+  {body.trim() && (
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="lg:max-w-[calc(66.666%-3rem)]">
+        <h2 class="text-2xl font-display font-bold text-slate-900 mb-5">About this tour</h2>
+        <div class="prose prose-slate prose-lg max-w-none">
+          <Content />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <BookingForm tour={tour} slots={slots} slotsError={slotsError} />
+</BaseLayout>

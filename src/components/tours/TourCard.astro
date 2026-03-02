@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Badge from '@components/ui/Badge.astro';
+import Button from '@components/ui/Button.astro';
+import Boat from 'phosphor-astro/Boat.astro';
+import PersonSimpleWalk from 'phosphor-astro/PersonSimpleWalk.astro';
+
+interface Props {
+  tour: CollectionEntry<'tours'>;
+}
+
+const { tour } = Astro.props;
+const { slug, data } = tour;
+const { title, description, price, duration, maxGroupSize, image, imageAlt, category } = data;
+---
+
+<article class="group bg-white rounded-[var(--radius-card)] shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+  <!-- Image -->
+  <a href={`/tours/${slug}`} class="block overflow-hidden aspect-[4/3]" aria-hidden="true" tabindex="-1">
+    <img
+      src={image}
+      alt={imageAlt}
+      width="800"
+      height="600"
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+  </a>
+
+  <!-- Content -->
+  <div class="flex flex-col flex-1 p-6">
+    <!-- Category badge -->
+    <div class="mb-3">
+      <Badge variant={category === 'boat' ? 'blue' : 'green'}>
+        {category === 'boat'
+        ? <><Boat width={12} height={12} /> Boat tour</>
+        : <><PersonSimpleWalk width={12} height={12} /> Walking tour</>}
+      </Badge>
+    </div>
+
+    <h3 class="text-xl font-display font-bold text-slate-900 mb-2 group-hover:text-primary-700 transition-colors">
+      <a href={`/tours/${slug}`}>{title}</a>
+    </h3>
+
+    <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-4 flex-1">
+      {description}
+    </p>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-4 text-sm text-slate-500 mb-5">
+      <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        {duration}
+      </span>
+      <span class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Max {maxGroupSize}
+      </span>
+    </div>
+
+    <!-- Price + CTA -->
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="text-2xl font-bold text-slate-900">€{price}</span>
+        <span class="text-sm text-slate-500"> / person</span>
+      </div>
+      <Button href={`/tours/${slug}`} size="sm">
+        Book now
+      </Button>
+    </div>
+  </div>
+</article>

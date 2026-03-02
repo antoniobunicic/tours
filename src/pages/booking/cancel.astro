@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Payment Cancelled"
+  description="Your payment was cancelled. No charge has been made. Return to choose your tour and try again."
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-4 py-20">
+    <div class="max-w-md w-full text-center">
+      <!-- Cancel icon -->
+      <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-display font-bold text-slate-900 mb-3">Payment cancelled</h1>
+      <p class="text-slate-500 leading-relaxed mb-8">
+        No worries — your payment was cancelled and you have not been charged. You can go back and try again whenever you're ready.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <Button href="/#tours">View our tours</Button>
+        <Button href="/" variant="outline">Back to homepage</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

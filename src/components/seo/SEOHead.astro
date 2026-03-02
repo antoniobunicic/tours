@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  canonicalUrl?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  image = '/images/og-default.svg',
+  imageAlt = 'Split Tours — Split guided tours',
+  canonicalUrl = Astro.url.href,
+  type = 'website',
+} = Astro.props;
+
+const siteName = 'Split Tours';
+const fullTitle = `${title} | ${siteName}`;
+const absoluteImage = new URL(image, Astro.site).href;
+---
+
+<!-- Primary -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={absoluteImage} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImage} />
+<meta name="twitter:image:alt" content={imageAlt} />
