@@ -10,6 +10,7 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.6.4",
     "@astrojs/node": "^9.0.0",
     "@astrojs/sitemap": "^3.0.0",
     "@phosphor-icons/core": "^2.1.1",

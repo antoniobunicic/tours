@@ -30,7 +30,11 @@
       "Bash(npm run build 2>&1 | tail -15)",
       "Bash(npm install flatpickr 2>&1 | tail -5)",
       "Bash(npm run build 2>&1 | tail -10)",
-      "Bash(curl -s \"http://localhost:4322/tours/walking-tour\" | grep -A 5 \"date-display\\\\|flatpickr\\\\|time-select\" | head -40)"
+      "Bash(curl -s \"http://localhost:4322/tours/walking-tour\" | grep -A 5 \"date-display\\\\|flatpickr\\\\|time-select\" | head -40)",
+      "Bash(git config http.postBuffer 524288000)",
+      "Bash(npm install @astrojs/netlify 2>&1 | tail -3)",
+      "Bash(npm run build 2>&1 | grep -E \"error|Error|warn\" | head -20)",
+      "Bash(npm run build 2>&1)"
     ]
   }
 }
